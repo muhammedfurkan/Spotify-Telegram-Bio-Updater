@@ -35,4 +35,4 @@ Great news. Just change the KEY variable in [constants](/constants.py) file. Don
 
 ## Issues? Need help? Want to tell me something?
 
-Well, just create an issue here. You can also ping me on [telegram](https://t.me/poolitzer).
+Well, just create an issue here. You can also ping me on [telegram](https://t.me/By_Azade).
