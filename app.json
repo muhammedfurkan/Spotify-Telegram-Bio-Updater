@@ -7,8 +7,6 @@
     "music",
     "good"
   ],
-  "repository": "https://github.com/muhammedfurkan/Spotify-Telegram-Bio-Updater",
-  "website": "https://github.com/muhammedfurkan",
   "env": {
     "WEBHOOK": {
       "description": "Setting this to ANYTHING will enable webhooks when in env mode",
