@@ -1,10 +1,10 @@
 {
-  "name": "Userge",
-  "description": "telegram pluggable userbot",
+  "name": "Spotify-Telegram-Bio-Updater",
+  "description": "spotify telegram bio updater",
   "keywords": [
-    "userge",
+    "spotify",
+    "music",
     "telegram",
-    "pluggable",
     "userbot"
   ],
   "repository": "https://github.com/muhammedfurkan/Spotify-Telegram-Bio-Updater",
