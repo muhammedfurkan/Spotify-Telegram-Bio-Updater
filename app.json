@@ -21,14 +21,6 @@
         "description": "Get this value from https://my.telegram.org",
         "value": ""
       },
-      "API_HASH": {
-        "description": "Get this value from https://my.telegram.org",
-        "value": ""
-      },
-      "APP_HASH": {
-        "description": "Get this value from https://my.telegram.org",
-        "value": ""
-      },
       "CLIENT_ID": {
         "description": "spotify client ID",
         "value": ""
