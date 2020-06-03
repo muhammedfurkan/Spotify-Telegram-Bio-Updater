@@ -1,24 +1,21 @@
 {
-  "name": "Spotify Bio Changer",
-  "description": "Telegram Spotify Biography Changer",
+  "name": "Userge",
+  "description": "telegram pluggable userbot",
   "keywords": [
+    "userge",
     "telegram",
-    "spotify",
-    "music",
-    "good"
+    "pluggable",
+    "userbot"
   ],
+  "repository": "https://github.com/muhammedfurkan/Spotify-Telegram-Bio-Updater",
+  "website": "https://github.com/muhammedfurkan/",
+  "success_url": "https://github.com/muhammedfurkan/",
   "env": {
-    "WEBHOOK": {
-      "description": "Setting this to ANYTHING will enable webhooks when in env mode",
-      "value": "ANYTHING"
-    },
     "APP_ID": {
-      "description": "Get this value from https://my.telegram.org",
-      "value": ""
+      "description": "Get this value from https://my.telegram.org"
     },
     "APP_HASH": {
-      "description": "Get this value from https://my.telegram.org",
-      "value": ""
+      "description": "Get this value from https://my.telegram.org"
     },
     "CLIENT_ID": {
       "description": "spotify client ID",
@@ -26,7 +23,7 @@
     },
     "CLIENT_SECRET": {
       "description": "spotify client scret key",
-      "value": "",
+      "value": ""
     },
     "SHUTDOWN_COMMAND": {
       "description": "stop command",
