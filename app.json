@@ -1,45 +1,47 @@
 {
-  "name": "Spotify-Telegram-Bio-Updater",
-  "description": "spotify telegram bio updater",
-  "keywords": [
-    "spotify",
-    "music",
-    "telegram",
-    "userbot"
-  ],
-  "repository": "https://github.com/muhammedfurkan/Spotify-Telegram-Bio-Updater",
-  "website": "https://github.com/muhammedfurkan/",
-  "success_url": "https://github.com/muhammedfurkan/",
-  "env": {
-    "APP_ID": {
-      "description": "Get this value from https://my.telegram.org"
+    "name":"Spotify-Telegram-Bio-Updater",
+    "description":"spotify telegram bio updater",
+    "keywords":[
+        "spotify",
+        "music",
+        "telegram",
+        "userbot"
+    ],
+    "repository":"https://github.com/muhammedfurkan/Spotify-Telegram-Bio-Updater",
+    "website":"https://github.com/muhammedfurkan/",
+    "success_url":"https://github.com/muhammedfurkan/",
+    "env":{
+        "APP_ID":{
+            "description":"Get this value from https://my.telegram.org"
+        },
+        "APP_HASH":{
+            "description":"Get this value from https://my.telegram.org"
+        },
+        "CLIENT_ID":{
+            "description":"spotify client ID",
+            "value":""
+        },
+        "CLIENT_SECRET":{
+            "description":"spotify client scret key",
+            "value":""
+        },
+        "SHUTDOWN_COMMAND":{
+            "description":"stop command",
+            "value":"\/\/stop",
+            "required":false
+        },
+        "KEY":{
+            "description":"Key :)",
+            "value":"🎶",
+            "required":false
+        }
     },
-    "APP_HASH": {
-      "description": "Get this value from https://my.telegram.org"
-    },
-    "CLIENT_ID": {
-      "description": "spotify client ID",
-      "value": ""
-    },
-    "CLIENT_SECRET": {
-      "description": "spotify client scret key",
-      "value": ""
-    },
-    "SHUTDOWN_COMMAND": {
-      "description": "stop command",
-      "value": "\/\/stop",
-      "required": false
-    },
-    "KEY": {
-      "description": "Key :)",
-      "value": "🎶",
-      "required": false
-    }
-  },
-  "addons": [],
-  "buildpacks": [
-    {
-      "url": "heroku/python"
-    }
-  ]
+    "addons":[
+        
+    ],
+    "buildpacks":[
+        {
+            "url":"heroku/python"
+        }
+    ]
 }
