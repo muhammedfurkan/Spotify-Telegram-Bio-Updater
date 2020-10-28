@@ -7,9 +7,6 @@
         "telegram",
         "userbot"
     ],
-    "repository":"https://github.com/muhammedfurkan/Spotify-Telegram-Bio-Updater",
-    "website":"https://github.com/muhammedfurkan/",
-    "success_url":"https://github.com/muhammedfurkan/",
     "env":{
         "APP_ID":{
             "description":"Get this value from https://my.telegram.org"
