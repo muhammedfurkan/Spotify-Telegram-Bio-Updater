@@ -9,32 +9,34 @@
     ],
     "env":{
         "ENV":{
-            "APP_ID":{
-                "description":"Get this value from https://my.telegram.org",
-                "value":""
-            },
-            "APP_HASH":{
-                "description":"Get this value from https://my.telegram.org",
-                "value":""
-            },
-            "CLIENT_ID":{
-                "description":"spotify client ID",
-                "value":""
-            },
-            "CLIENT_SECRET":{
-                "description":"spotify client scret key",
-                "value":""
-            },
-            "SHUTDOWN_COMMAND":{
-                "description":"stop command",
-                "value":"\/\/stop",
-                "required":false
-            },
-            "KEY":{
-                "description":"Key :)",
-                "value":"🎶",
-                "required":false
-            }
+            "description":"Setting this to ANYTHING will enable environment variables.",
+            "value":"ANYTHING"
+        },
+        "APP_ID":{
+            "description":"Get this value from https://my.telegram.org",
+            "value":""
+        },
+        "APP_HASH":{
+            "description":"Get this value from https://my.telegram.org",
+            "value":""
+        },
+        "CLIENT_ID":{
+            "description":"spotify client ID",
+            "value":""
+        },
+        "CLIENT_SECRET":{
+            "description":"spotify client scret key",
+            "value":""
+        },
+        "SHUTDOWN_COMMAND":{
+            "description":"stop command",
+            "value":"\/\/stop",
+            "required":false
+        },
+        "KEY":{
+            "description":"Key :)",
+            "value":"🎶",
+            "required":false
         }
     },
     "addons":[
