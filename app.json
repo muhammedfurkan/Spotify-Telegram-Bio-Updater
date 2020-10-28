@@ -9,10 +9,12 @@
     ],
     "env":{
         "APP_ID":{
-            "description":"Get this value from https://my.telegram.org"
+            "description":"Get this value from https://my.telegram.org",
+            "value":""
         },
         "APP_HASH":{
-            "description":"Get this value from https://my.telegram.org"
+            "description":"Get this value from https://my.telegram.org",
+            "value":""
         },
         "CLIENT_ID":{
             "description":"spotify client ID",
