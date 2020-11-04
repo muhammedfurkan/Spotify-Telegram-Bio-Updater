@@ -1,12 +1,16 @@
 import asyncio
-from constants import API_HASH, API_ID, CLIENT_ID, CLIENT_SECRET, LOG, SHUTDOWN_COMMAND, BIOS, LIMIT
 import json
 import logging
+
 import requests
 from telethon import TelegramClient, events
-from telethon.errors import FloodWaitError, AboutTooLongError
+from telethon.errors import AboutTooLongError, FloodWaitError
 from telethon.tl.functions.account import UpdateProfileRequest
 from telethon.tl.functions.users import GetFullUserRequest
+
+from constants import (API_HASH, API_ID, BIOS, CLIENT_ID, CLIENT_SECRET, LIMIT,
+                       LOG, SHUTDOWN_COMMAND)
+
 device_model = "spotify_bot"
 version = "1.5"
 system_version, app_version = version, version
@@ -107,7 +111,8 @@ async def work():
         to_insert = {}
         oauth = {
             "Authorization": "Bearer " + database.return_token()}
-        r = requests.get('https://api.spotify.com/v1/me/player/currently-playing', headers=oauth)
+        r = requests.get(
+            'https://api.spotify.com/v1/me/player/currently-playing', headers=oauth)
         # 200 means user plays smth
         if r.status_code == 200:
             received = r.json()
@@ -115,7 +120,8 @@ async def work():
                 to_insert["title"] = received["item"]["name"]
                 to_insert["progress"] = ms_converter(received["progress_ms"])
                 to_insert["interpret"] = received['item']["artists"][0]["name"]
-                to_insert["duration"] = ms_converter(received["item"]["duration_ms"])
+                to_insert["duration"] = ms_converter(
+                    received["item"]["duration_ms"])
                 if save_spam("spotify", False):
                     stringy = "**[INFO]**\n\nEverything returned back to normal, the previous spotify issue has been " \
                               "resolved."
@@ -146,7 +152,8 @@ async def work():
             data = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET,
                     "grant_type": "refresh_token",
                     "refresh_token": database.return_refresh()}
-            r = requests.post("https://accounts.spotify.com/api/token", data=data)
+            r = requests.post(
+                "https://accounts.spotify.com/api/token", data=data)
             received = r.json()
             # if a new refresh is token as well, we save it here
             try:
@@ -181,7 +188,8 @@ async def work():
         else:
             await client.send_message(LOG, '**[ERROR]**\n\nOK, so something went reeeally wrong with spotify. The bot '
                                            'was stopped.\nStatus code: ' + str(r.status_code) + '\n\nText: ' + r.text)
-            logger.error(f"Spotify, error {str(r.status_code)}, text: {r.text}")
+            logger.error(
+                f"Spotify, error {str(r.status_code)}, text: {r.text}")
             # stop the whole program since I dont know what happens here and this is the safest thing we can do
             loop.stop()
         # TELEGRAM
@@ -199,7 +207,8 @@ async def work():
                 # we need this variable to see if actually one of the bios is below the character limit
                 new_bio = ""
                 for bio in BIOS:
-                    temp = bio.format(title=title, interpret=interpret, progress=progress, duration=duration)
+                    temp = bio.format(
+                        title=title, interpret=interpret, progress=progress, duration=duration)
                     # we try to not ignore for telegrams character limit here
                     if len(temp) < LIMIT:
                         # this is short enough, so we put it in the variable and break our for loop

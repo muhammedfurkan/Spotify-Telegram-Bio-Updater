@@ -1,6 +1,9 @@
-import requests
 import json
-from constants import CLIENT_SECRET, CLIENT_ID, INITIAL_BIO, INITIAL_TOKEN
+
+import requests
+
+from constants import CLIENT_ID, CLIENT_SECRET, INITIAL_BIO, INITIAL_TOKEN
+
 body = {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET,
         "grant_type": "authorization_code", "redirect_uri": "https://example.com/callback",
         "code": INITIAL_TOKEN}

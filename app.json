@@ -13,19 +13,11 @@
 			"description": "Setting this to ANYTHING will enable webhooks when in env mode",
 			"value": "ANYTHING"
 		},
-		"APP_ID": {
-			"description": "Get this value from https://my.telegram.org",
-			"value": ""
-		},
 		"API_ID": {
 			"description": "Get this value from https://my.telegram.org",
 			"value": ""
 		},
 		"API_HASH": {
-			"description": "Get this value from https://my.telegram.org",
-			"value": ""
-		},
-		"APP_HASH": {
 			"description": "Get this value from https://my.telegram.org",
 			"value": ""
 		},

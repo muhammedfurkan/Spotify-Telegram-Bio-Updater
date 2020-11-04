@@ -3,8 +3,7 @@ setup:
     - plan: heroku-postgresql
       as: DATABASE
   config:
-    WEBHOOK: my-example-bucket,
-    APP_ID: "",
+    WEBHOOK: ANYTHING,
     API_ID: "",
     API_HASH:  "",
     APP_HASH: "",
