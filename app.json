@@ -1,55 +1,57 @@
 {
-    "name":"Spotify-Telegram-Bio-Updater",
-    "description":"spotify telegram bio updater",
-    "keywords":[
-        "spotify",
-        "music",
-        "telegram",
-        "userbot"
-    ],
-    "env":{
-        "ENV":{
-            "description":"Setting this to ANYTHING will enable environment variables.",
-            "value":"ANYTHING"
-        },
-        "APP_ID":{
-            "description":"Get this value from https://my.telegram.org",
-            "value":""
-        },
-        "APP_HASH":{
-            "description":"Get this value from https://my.telegram.org",
-            "value":""
-        },
-        "CLIENT_ID":{
-            "description":"spotify client ID",
-            "value":""
-        },
-        "CLIENT_SECRET":{
-            "description":"spotify client scret key",
-            "value":""
-        },
-        "SHUTDOWN_COMMAND":{
-            "description":"stop command",
-            "value":"\/\/stop",
-            "required":false
-        },
-        "KEY":{
-            "description":"Key :)",
-            "value":"🎶",
-            "required":false
-        }
-    },
-    "addons":[
-        {
-            "plan":"heroku-postgresql",
-            "options":{
-                "version":"12"
-            }
-        }
-    ],
-    "buildpacks":[
-        {
-            "url":"heroku/python"
-        }
-    ]
+	"name": "Spotify Bio Changer",
+	"description": "Telegram Spotify Biography Changer",
+	"keywords": [
+		"telegram",
+		"spotify",
+		"music",
+		"good"
+	],
+	"repository": "https://github.com/c311at/spotify_telegram_bio_updater",
+	"env": {
+		"WEBHOOK": {
+			"description": "Setting this to ANYTHING will enable webhooks when in env mode",
+			"value": "ANYTHING"
+		},
+		"APP_ID": {
+			"description": "Get this value from https://my.telegram.org",
+			"value": ""
+		},
+		"API_ID": {
+			"description": "Get this value from https://my.telegram.org",
+			"value": ""
+		},
+		"API_HASH": {
+			"description": "Get this value from https://my.telegram.org",
+			"value": ""
+		},
+		"APP_HASH": {
+			"description": "Get this value from https://my.telegram.org",
+			"value": ""
+		},
+		"CLIENT_ID": {
+			"description": "spotify client ID",
+			"value": ""
+		},
+		"CLIENT_SECRET": {
+			"description": "spotify client scret key",
+			"value": ""
+		},
+		"SHUTDOWN_COMMAND": {
+			"description": "stop command",
+			"value": "\/\/stop",
+			"required": false
+		},
+		"KEY": {
+			"description": "Key :)",
+			"value": "🎶",
+			"required": false
+		}
+	},
+	"addons": [],
+	"buildpacks": [
+		{
+			"url": "heroku/python"
+		}
+	]
 }

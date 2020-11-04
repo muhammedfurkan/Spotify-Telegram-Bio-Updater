@@ -1,0 +1,15 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+  config:
+    WEBHOOK: my-example-bucket,
+    APP_ID: "",
+    API_ID: "",
+    API_HASH:  "",
+    APP_HASH: "",
+    CLIENT_ID: "",
+    CLIENT_SECRET: "",
+    SHUTDOWN_COMMAND : "",
+    KEY: ""
+    
