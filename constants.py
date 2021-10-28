@@ -9,13 +9,15 @@ LOG = "me"
 SHUTDOWN_COMMAND = "\/\/stop"
 # The key which is used to determine if the current bio was generated from the bot ot from the user. This means:
 # NEVER use whatever you put here in your original bio. NEVER. Don't do it!
-KEY = '🎶'
+KEY = "🎶"
 # The bios MUST include the key. The bot will go though those and check if they are beneath telegrams character limit.
-BIOS = [KEY + ' Now Playing: {interpret} - {title} {progress}/{duration}',
-        KEY + ' Now Playing: {interpret} - {title}',
-        KEY + ' : {interpret} - {title}',
-        KEY + ' Now Playing: {title}',
-        KEY + ' : {title}']
+BIOS = [
+    KEY + " Now Playing: {interpret} - {title} {progress}/{duration}",
+    KEY + " Now Playing: {interpret} - {title}",
+    KEY + " : {interpret} - {title}",
+    KEY + " Now Playing: {title}",
+    KEY + " : {title}",
+]
 # Mind that some characters (e.g. emojis) count more in telegram more characters then in python. If you receive an
 # AboutTooLongError and get redirected here, you need to increase the offset. Check the special characters you either
 # have put in the KEY or in one of the BIOS with an official Telegram App and see how many characters they actually
