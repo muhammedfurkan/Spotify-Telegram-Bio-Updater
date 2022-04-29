@@ -1,2 +1,4 @@
-https://github.com/LonamiWebs/Telethon/archive/master.zip
+telethon
+pyaesni
+telethon-tgcrypto
 requests
