@@ -37,10 +37,10 @@ def ms_converter(millis):
     if str(seconds) == "0":
         seconds = "00"
     if len(str(seconds)) == 1:
-        seconds = "0" + str(seconds)
+        seconds = f"0{str(seconds)}"
     minutes = (millis / (1000 * 60)) % 60
     minutes = int(minutes)
-    return str(minutes) + ":" + str(seconds)
+    return f"{minutes}:{str(seconds)}"
 
 
 class Database:
@@ -64,7 +64,7 @@ class Database:
         self.save()
 
     def save_spam(self, which, what):
-        self.db[which + "_spam"] = what
+        self.db[f"{which}_spam"] = what
 
     def return_token(self):
         return self.db["access_token"]
@@ -76,7 +76,7 @@ class Database:
         return self.db["bio"]
 
     def return_spam(self, which):
-        return self.db[which + "_spam"]
+        return self.db[f"{which}_spam"]
 
     def save(self):
         with open("./database.json", "w") as outfile:
@@ -94,21 +94,18 @@ def save_spam(which, what):
     # see below why
 
     # this is if False is inserted, so if spam = False, so if everything is good.
-    if not what:
-        # if it wasn't normal before, we proceed
-        if database.return_spam(which):
-            # we save that it is normal now
-            database.save_spam(which, False)
-            # we return True so we can test against it and if it this function returns, we can send a fitting message
-            return True
-    # this is if True is inserted, so if spam = True, so if something went wrong
-    else:
+    if what:
         # if it was normal before, we proceed
         if not database.return_spam(which):
             # we save that it is not normal now
             database.save_spam(which, True)
             # we return True so we can send a message
             return True
+    elif database.return_spam(which):
+        # we save that it is normal now
+        database.save_spam(which, False)
+        # we return True so we can test against it and if it this function returns, we can send a fitting message
+        return True
     # if True wasn't returned before, we can return False now so our test fails and we dont send a message
     return False
 
@@ -118,7 +115,7 @@ async def work():
         # SPOTIFY
         skip = False
         to_insert = {}
-        oauth = {"Authorization": "Bearer " + database.return_token()}
+        oauth = {"Authorization": f"Bearer {database.return_token()}"}
         r = requests.get(
             "https://api.spotify.com/v1/me/player/currently-playing", headers=oauth
         )
@@ -137,15 +134,13 @@ async def work():
                         "resolved."
                     )
                     await client.send_message(LOG, stringy)
-            else:
-                if save_spam("spotify", True):
-                    # currently item is not passed when the user plays a podcast
-                    string = (
-                        f"**[INFO]**\n\nThe playback {received['currently_playing_type']} didn't gave me any "
-                        f"additional information, so I skipped updating the bio."
-                    )
-                    await client.send_message(LOG, string)
-        # 429 means flood limit, we need to wait
+            elif save_spam("spotify", True):
+                # currently item is not passed when the user plays a podcast
+                string = (
+                    f"**[INFO]**\n\nThe playback {received['currently_playing_type']} didn't gave me any "
+                    f"additional information, so I skipped updating the bio."
+                )
+                await client.send_message(LOG, string)
         elif r.status_code == 429:
             to_wait = r.headers["Retry-After"]
             logger.error(f"Spotify, have to wait for {str(to_wait)}")
@@ -156,7 +151,6 @@ async def work():
             )
             skip = True
             await asyncio.sleep(int(to_wait))
-        # 204 means user plays nothing, since to_insert is false, we dont need to change anything
         elif r.status_code == 204:
             if save_spam("spotify", False):
                 stringy = (
@@ -164,8 +158,6 @@ async def work():
                     "resolved."
                 )
                 await client.send_message(LOG, stringy)
-            pass
-        # 401 means our access token is expired, so we need to refresh it
         elif r.status_code == 401:
             data = {
                 "client_id": CLIENT_ID,
@@ -184,8 +176,6 @@ async def work():
             database.save_token(received["access_token"])
             # since we didnt actually update our status yet, lets do this without the 30 seconds wait
             skip = True
-        # 502 means bad gateway, its an issue on spotify site which we can do nothing about. 30 seconds wait shouldn't
-        # put too much pressure on the spotify server, so we are just going to notify the user once
         elif r.status_code == 502:
             if save_spam("spotify", True):
                 string = (
@@ -193,8 +183,6 @@ async def work():
                     f"servers. The bot will continue to run but may not update the bio for a short time."
                 )
                 await client.send_message(LOG, string)
-        # 503 means service unavailable, its an issue on spotify site which we can do nothing about. 30 seconds wait
-        # shouldn't put too much pressure on the spotify server, so we are just going to notify the user once
         elif r.status_code == 503:
             if save_spam("spotify", True):
                 string = (
@@ -203,13 +191,10 @@ async def work():
                     f"short time."
                 )
                 await client.send_message(LOG, string)
-        # 404 is a spotify error which isn't supposed to happen (since our URL is correct). Track the issue here:
-        # https://github.com/spotify/web-api/issues/1280
         elif r.status_code == 404:
             if save_spam("spotify", True):
                 string = f"**[INFO]**\n\nSpotify returned a 404 error, which is a bug on their side."
                 await client.send_message(LOG, string)
-        # catch anything else
         else:
             await client.send_message(
                 LOG,
@@ -252,13 +237,10 @@ async def work():
                 # if we have a bio, one bio was short enough
                 if new_bio:
                     # test if the user changed his bio to blank, we save it before we override
-                    if not bio:
-                        database.save_bio(bio)
-                    # test if the user changed his bio in the meantime, if yes, we save it before we override
-                    elif "🎶" not in bio:
+                    if not bio or "🎶" not in bio:
                         database.save_bio(bio)
                     # test if the bio isn't the same, otherwise updating it would be stupid
-                    if not new_bio == bio:
+                    if new_bio != bio:
                         try:
                             await client(UpdateProfileRequest(about=new_bio))
                             if save_spam("telegram", False):
@@ -278,14 +260,12 @@ async def work():
                                 )
                                 await client.send_message(LOG, stringy)
                 # if we dont have a bio, everything was too long, so we tell the user that
-                if not new_bio:
-                    if save_spam("telegram", True):
-                        to_send = (
-                            f"**[INFO]**\n\nThe current track exceeded the character limit, so the bio wasn't "
-                            f"updated.\n\n Track: {title}\nInterpret: {interpret}"
-                        )
-                        await client.send_message(LOG, to_send)
-            # not to_insert means no playback
+                if not new_bio and save_spam("telegram", True):
+                    to_send = (
+                        f"**[INFO]**\n\nThe current track exceeded the character limit, so the bio wasn't "
+                        f"updated.\n\n Track: {title}\nInterpret: {interpret}"
+                    )
+                    await client.send_message(LOG, to_send)
             else:
                 if save_spam("telegram", False):
                     stringy = (
@@ -295,17 +275,10 @@ async def work():
                     await client.send_message(LOG, stringy)
                 old_bio = database.return_bio()
                 # this means the bio is blank, so we save that as the new one
-                if not bio:
+                if not bio or "🎶" not in bio and bio != old_bio:
                     database.save_bio(bio)
-                # this means an old playback is in the bio, so we change it back to the original one
                 elif "🎶" in bio:
                     await client(UpdateProfileRequest(about=database.return_bio()))
-                # this means a new original is there, lets save it
-                elif not bio == old_bio:
-                    database.save_bio(bio)
-                # this means the original one we saved is still valid
-                else:
-                    pass
         except FloodWaitError as e:
             to_wait = e.seconds
             logger.error(f"to wait for {str(to_wait)}")
