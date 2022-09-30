@@ -9,7 +9,7 @@ body = {
     "client_id": CLIENT_ID,
     "client_secret": CLIENT_SECRET,
     "grant_type": "authorization_code",
-    "redirect_uri": "http://localhost:1234/callback",
+    "redirect_uri": "https://example.com/callback",
     "code": INITIAL_TOKEN,
 }
 

@@ -227,7 +227,7 @@ async def work():
         try:
             # full needed, since we dont get a bio with the normal request
             full = await client(GetFullUserRequest("me"))
-            bio = full.about
+            bio = full.full_user.about
             # to_insert means we have a successful playback
             if to_insert:
                 # putting our collected information's into nice variables
